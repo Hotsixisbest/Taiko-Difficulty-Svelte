@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'SDKukDeTopokki';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiLight.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiLight.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiLight.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiLight.ttf') format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: 'SDKukDeTopokki';
+    font-weight: bold;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiBold.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiBold.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiBold.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiBold.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/kukde/SDKukDeTopokkiBold.ttf') format("truetype");
+    font-display: swap;
+}
