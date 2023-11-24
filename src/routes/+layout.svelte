@@ -4,8 +4,14 @@
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
+    export let data;
+
     let user = writable({logined:false});
     setContext('user', user);
+    $:if(data.id){
+        $user.logined = true;
+        $user.id = data.id;
+    }
 </script>
 
 <Header>
@@ -17,16 +23,16 @@
 	<div slot="right" class="right">
         {#if $user.logined}
             <img src="/assets/logo/user.svg" style="width:30px;height:30px;" alt="로그인" />
-            {$user.nickname}
+            {$user.id}
         {:else}
 		<Hover hoverText="로그인" style="width:30px;height:30px;">
-			<a href="/login" class="header-link">
+			<a href="/auth/login" class="header-link">
                 <img src="/assets/logo/user.svg" style="width:30px;height:30px;" alt="로그인" />
             </a>
 		</Hover>
 
         {/if}
-        <a href="/hiroba-login" style="padding-right:20px" class="header-link">동더히로바 로그인</a>
+        <a href="/hiroba" style="padding-right:20px" class="header-link">동더히로바 데이터 가져오기</a>
 	</div>
 </Header>
 <slot />

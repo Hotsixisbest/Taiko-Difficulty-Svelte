@@ -50,7 +50,7 @@ function hash(password:string){
 }
 
 export async function register(id:string, password:string){
-    let isUser
+    let isUser;
     try{
         isUser = await checkUser(id);
     }
@@ -58,14 +58,14 @@ export async function register(id:string, password:string){
         throw new AuthError(err.message, 'DATABASE_ERROR');
     }
 
-    if(isUser){
+    if(isUser.result){
         throw new AuthError('', 'DUPLICATED_ID');
     }
 
     const hashed = hash(password);
     try{
         await new Promise<void>((res, rej) => {
-            db.run("INSERT INTO `user` (`id`, `password`) VALUES (?, ?", [id, hashed], (err) => {
+            db.run("INSERT INTO `user` (`id`, `password`) VALUES (?, ?)", [id, hashed], (err) => {
                 if(err){
                     rej(err);
                 }
@@ -76,6 +76,7 @@ export async function register(id:string, password:string){
         })
     }
     catch(err:any){
+        console.log(err);
         throw new AuthError(err.message, 'DATABASE_ERROR')
     }
 
@@ -114,7 +115,6 @@ async function createSession(id:string):Promise<string>{
         await deleteSessionExpired();
     }
     catch{}
-
     let key = randomString();
 
     let isDuplicate:boolean;
@@ -125,7 +125,7 @@ async function createSession(id:string):Promise<string>{
                     rej(err);
                 }
                 else{
-                    if(row.length === 0){
+                    if(row.length !== 0){
                         res(true);
                     }
                     else{
@@ -159,7 +159,7 @@ async function createSession(id:string):Promise<string>{
         }catch(err:any){
             throw new AuthError(err.message, 'DATABASE_ERROR')
         }
-
+        
         return key;
     }
 }
@@ -203,9 +203,11 @@ export async function checkSession(key:string){
     }
 
     if(sessionData.result){
-        try{
+        try{//세션 연장
             await new Promise<void>((res, rej) => {
-                db.run("UPDATE `session` SET `expiration` = ? WHERE `key` = ?", [new Date().getTime(), key], (err) => {
+                let currentTime = new Date();
+                currentTime.setDate(currentTime.getDate() + 30);
+                db.run("UPDATE `session` SET `expiration` = ? WHERE `key` = ?", [currentTime.getTime(), key], (err) => {
                     if(err){
                         rej(err);
                     }
@@ -248,4 +250,12 @@ async function deleteSessionExpired(){
 
 function randomString():string{
     return Math.random().toString(32).substring(2, 10) + Math.random().toString(32).substring(2, 10);
+}
+
+export async function setId(locals:any){
+    let id;
+    if(locals.id){
+        id = locals.id;
+    }
+    return id;
 }

@@ -1,6 +1,11 @@
 <script lang="ts">
     import LevelGrade from "$lib/components/routes/levelGrade.svelte";
+    import { setUser } from "$lib/module/auth/user.client.js";
+
     export let data;
+    if(data.id){
+        setUser({logined: true, id: data.id});
+    }
 
     export let level:any = "10";
 </script>

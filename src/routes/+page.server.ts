@@ -1,14 +1,17 @@
+import { setId } from '$lib/module/auth/auth.server.js';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export async function load(){
+export async function load({locals}){
     let levelGradeClearData = await getClearGradeData();
     let songs = await getSongs();
+
     return {
         levelGradeClearData,
-        songs
+        songs,
+        id: await setId(locals)
     }
 }
 
