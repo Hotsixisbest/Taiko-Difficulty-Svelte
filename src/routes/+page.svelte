@@ -18,7 +18,7 @@
         <option value="7">7레벨</option>
         <option value="6">6레벨</option>
     </select>
-    <LevelGrade setting={{type:'clear', level:level}} levelGradeData={data.levelGradeClearData} songs={data.songs}/>
+    <LevelGrade setting={{type:'clear', level:level}} levelGradeData={data.levelGradeClearData} songs={data.songs} clearData={data.clearData}/>
 </main>
 
 <style>

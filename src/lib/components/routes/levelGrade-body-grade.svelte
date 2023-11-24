@@ -4,6 +4,16 @@
     export let gradeName:string;
     export let songDatas:any;
     export let color:string;
+    export let clearData:any[];
+
+    function getClearData(songData:any){
+        if(songData.isUra){
+            return clearData?.find(e => e.title === songData.realName)?.difficulty?.find((e:any) => e.difficulty === 'ura') || clearData?.find(e => e.title === songData.realName.replace("'", '’'))?.difficulty?.find((e:any) => e.difficulty === 'ura')
+        }
+        else{
+            return clearData?.find(e => e.title === songData.realName)?.difficulty?.find((e:any) => e.difficulty === 'oni') || clearData?.find(e => e.title === songData.realName.replace("'", '’'))?.difficulty?.find((e:any) => e.difficulty === 'oni')
+        }
+    }
 </script>
 
 <div class="grade">
@@ -12,7 +22,7 @@
     </div>
     <div class="grade-body">
         {#each songDatas as songData}
-        <LevelGradeBodyCell {songData}/>
+        <LevelGradeBodyCell {songData} clearData={getClearData(songData)}/>
         {/each}
     </div>
 </div>
@@ -52,7 +62,7 @@
         width:calc(100% - 10px);
 
         display:grid;
-        grid-template-columns: repeat(auto-fill, 190px);
+        grid-template-columns: repeat(auto-fill, 225px);
         grid-auto-flow: row;
         justify-content: center;
         row-gap: 8px;

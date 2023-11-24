@@ -6,6 +6,8 @@
 	export let songData: LevelGradeSongData;
 	let jpnName: any;
 
+	export let clearData: any;
+
 	//글씨 크기 조절
 	onMount(() => {
 		if (browser) {
@@ -14,11 +16,10 @@
 	});
 
 	$: if (songData && browser && jpnName?.innerText !== songData.jpnName) {
-		tick()
-		.then(() => {
+		tick().then(() => {
 			jpnName.style.fontSize = '16px';
 			resizeFont();
-		})
+		});
 	}
 
 	onDestroy(() => {
@@ -28,8 +29,11 @@
 	});
 
 	function resizeFont() {
-		if (window.innerWidth >= 767 ) {
-			if(Number(getComputedStyle(jpnName).height.replace('px', '')) > 23.3 && jpnName.style.fontSize !== '13px'){
+		if (window.innerWidth >= 767) {
+			if (
+				Number(getComputedStyle(jpnName).height.replace('px', '')) > 23.3 &&
+				jpnName.style.fontSize !== '13px'
+			) {
 				jpnName.style.fontSize = '13px';
 			}
 		} else {
@@ -87,6 +91,49 @@
 		}
 	}
 
+	function getCrownImg(clear: string | null) {
+		switch (clear) {
+			case 'played': {
+				return 'https://donderhiroba.jp/image/sp/640/crown_large_0_640.png';
+			}
+			case 'silver': {
+				return 'https://donderhiroba.jp/image/sp/640/crown_large_1_640.png';
+			}
+			case 'gold': {
+				return 'https://donderhiroba.jp/image/sp/640/crown_large_2_640.png';
+			}
+			case 'donderfull': {
+				return 'https://donderhiroba.jp/image/sp/640/crown_large_3_640.png';
+			}
+		}
+	}
+
+	function getBadgeImg(badge: string | null) {
+		switch (badge) {
+			case 'rainbow': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_8_640.png';
+			}
+			case 'purple': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_7_640.png';
+			}
+			case 'pink': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_6_640.png';
+			}
+			case 'gold': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_5_640.png';
+			}
+			case 'silver': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_4_640.png';
+			}
+			case 'bronze': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_3_640.png';
+			}
+			case 'white': {
+				return 'https://donderhiroba.jp/image/sp/640/best_score_rank_2_640.png';
+			}
+		}
+	}
+
 	interface LevelGradeSongData {
 		realName: string;
 		jpnName: string;
@@ -120,6 +167,16 @@
 			{songData.korName}
 		</div>
 	</div>
+	<div class="crown-wrapper">
+		{#if clearData}
+			{#if clearData?.clear?.crown}
+				<img style="width:100%;" src={getCrownImg(clearData.clear.crown)} alt="" />
+			{/if}
+			{#if clearData?.clear?.badge}
+				<img style="width:100%;" src={getBadgeImg(clearData.clear.badge)} alt="" />
+			{/if}
+		{/if}
+	</div>
 	<div class="option-wrapper">
 		{#each songData.option as option}
 			<div
@@ -134,7 +191,7 @@
 
 <style>
 	.cell {
-		width: 190px;
+		width: 225px;
 		min-height: 60px;
 
 		background-color: #ededed;
@@ -184,7 +241,7 @@
 	}
 
 	.name-wrapper {
-		width: calc(100% - 9px);
+		width: calc(100% - 49px);
 		height: calc(100% - 6px);
 
 		display: flex;
@@ -210,6 +267,14 @@
 		font-family: 'SDKukDeTopokki';
 		font-weight: bold;
 		margin-top: 4px;
+	}
+
+	.crown-wrapper {
+		width: 35px;
+		height: calc(100% - 6px);
+
+		box-sizing: border-box;
+		padding-right: 5px;
 	}
 
 	.option-wrapper {

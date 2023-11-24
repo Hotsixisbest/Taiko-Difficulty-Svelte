@@ -4,6 +4,7 @@
 	export let songs;
 	export let level;
 	export let levelGradeData;
+	export let clearData;
     let allGradeData = parseGradeData(levelGradeData);
 
 	let grades = [];
@@ -164,6 +165,7 @@
 					return e.songData;
 				})}
 			color={getGradeColor(grade)}
+			{clearData}
 		/>
 	{/each}
 </div>

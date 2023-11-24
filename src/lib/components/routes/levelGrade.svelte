@@ -5,6 +5,7 @@
 	export let setting:LevelGradeSetting;
 	export let levelGradeData:any;
 	export let songs:any;
+	export let clearData:any;
 
     interface LevelGradeSetting {
 		type: 'donderfull' | 'clear' | 'full';
@@ -15,7 +16,7 @@
 <div class="levelgrade">
 	<LevelGradeHead {setting}/>
 	{#if setting.type === 'clear'}
-		<LevelGradeClearBody {levelGradeData} {songs} level={Number(setting.level)}/>
+		<LevelGradeClearBody {levelGradeData} {songs} level={Number(setting.level)} {clearData}/>
 	{/if}
 </div>
 

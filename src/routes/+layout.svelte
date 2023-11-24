@@ -8,7 +8,7 @@
 
     let user = writable({logined:false});
     setContext('user', user);
-    $:if(data.id){
+    $:if(data?.id){
         $user.logined = true;
         $user.id = data.id;
     }
