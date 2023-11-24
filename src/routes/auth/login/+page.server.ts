@@ -38,6 +38,7 @@ export const actions = {
             sessionKey = await login(id, password);
         }
         catch(err:any){
+            console.log(err);
             return {
                 result:false,
                 code: err.code

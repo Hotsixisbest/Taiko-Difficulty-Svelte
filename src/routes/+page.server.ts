@@ -5,27 +5,29 @@ import { db } from '$lib/module/db/db.server.js';
 
 dotenv.config();
 
-export async function load({locals}){
+export async function load({ locals }) {
     let levelGradeClearData = await getClearGradeData();
     let songs = await getSongs();
 
     let id = locals.id;
-    
-    let clearData:any;
-    try{
-        clearData = await new Promise((res, rej) => {
-            db.all("SELECT `data` FROM `clearData` WHERE `id` = ? ORDER BY importedTime DESC LIMIT 1", [id], (err, row) => {
-                if(err){
-                    rej(err);
-                }
-                else{
-                    res(row[0]);
-                }
+
+    let clearData: any;
+    try {
+        if (id) {
+            let clearDataJSON: any = await new Promise((res, rej) => {
+                db.all("SELECT `data` FROM `clearData` WHERE `id` = ? ORDER BY importedTime DESC LIMIT 1", [id], (err, row) => {
+                    if (err) {
+                        rej(err);
+                    }
+                    else {
+                        res(row[0]);
+                    }
+                })
             })
-        })
-        clearData = JSON.parse(clearData.data);
+            clearData = JSON.parse(clearDataJSON.data);
+        }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 
@@ -37,32 +39,32 @@ export async function load({locals}){
     }
 }
 
-async function getClearGradeData(){
+async function getClearGradeData() {
     let response;
-    try{
+    try {
         response = await axios({
-            method:'post',
+            method: 'post',
             data: {
                 'api_key': process.env.api_key
             },
-            url:'http://taikowiki.com/api/levelgrade.php'
+            url: 'http://taikowiki.com/api/levelgrade.php'
         })
     }
-    catch{}
+    catch { }
     return response?.data
 }
 
-async function getSongs(){
+async function getSongs() {
     let response;
-    try{
+    try {
         response = await axios({
-            method:'post',
+            method: 'post',
             data: {
                 'api_key': process.env.api_key
             },
-            url:'http://taikowiki.com/api/songs.php'
+            url: 'http://taikowiki.com/api/songs.php'
         })
     }
-    catch{}
+    catch { }
     return response?.data
 }

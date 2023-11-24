@@ -3,7 +3,7 @@
     import { setUser } from "$lib/module/auth/user.client.js";
 
     export let data;
-    if(data.id){
+    if(data?.id){
         setUser({logined: true, id: data.id});
     }
 

@@ -45,7 +45,7 @@ async function checkUser(id:string){
 }
 
 function hash(password:string){
-    const hashed = crypto.createHash('sha-512').update(password).digest('base64');
+    const hashed = crypto.createHash('SHA512').update(password).digest('base64');
     return hashed;
 }
 
@@ -253,7 +253,7 @@ function randomString():string{
 }
 
 export async function setId(locals:any){
-    let id;
+    let id = undefined;
     if(locals.id){
         id = locals.id;
     }
