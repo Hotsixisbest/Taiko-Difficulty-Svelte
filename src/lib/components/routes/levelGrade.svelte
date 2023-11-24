@@ -1,8 +1,10 @@
 <script lang="ts">
 	import LevelGradeHead from "./levelGrade-head.svelte";
-    import LevelGradeBody from "./levelGrade-body.svelte";
+    import LevelGradeClearBody from "./levelGrade-clear-body.svelte";
 
 	export let setting:LevelGradeSetting;
+	export let levelGradeData:any;
+	export let songs:any;
 
     interface LevelGradeSetting {
 		type: 'donderfull' | 'clear' | 'full';
@@ -12,7 +14,9 @@
 
 <div class="levelgrade">
 	<LevelGradeHead {setting}/>
-	<LevelGradeBody/>
+	{#if setting.type === 'clear'}
+		<LevelGradeClearBody {levelGradeData} {songs} level={Number(setting.level)}/>
+	{/if}
 </div>
 
 <style>
@@ -21,6 +25,9 @@
 		max-width: 100%;
 
 		box-sizing: content-box;
-		border: 1px solid black;
+
+		display:flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>

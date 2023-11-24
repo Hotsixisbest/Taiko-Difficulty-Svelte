@@ -7,13 +7,13 @@
     export let style:string;
     export let hoverText:string;
     export let showMobile:boolean = false;
+    export let showPopup = false;
+    
     export let width:number;
     export let isMobile:boolean = false;
     export function onResize(){
         width = window.innerWidth;
     }
-
-    export let showPopup = false;
 
     onMount(() => {
         if(browser){
