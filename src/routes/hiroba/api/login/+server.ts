@@ -15,16 +15,19 @@ export async function POST({request, locals}){
         let password = formData.get('password')?.toString();
         
         if(!email || !password){
-            throw new Error();
+            return new Response(JSON.stringify({
+                status: 'login',
+                code: "NO_ID_PASSWORD"
+            }))
         }
 
         token = await getSessionToken(email, password);
     }
-    catch(err){
+    catch(err:any){
         console.log(err);
         return new Response(JSON.stringify({
-            status:'login',
-            code: 'UNEXPECTED_ERROR'
+            status: 'login',
+            code: err.code
         }))
     }
 
