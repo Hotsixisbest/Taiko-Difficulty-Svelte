@@ -24,7 +24,9 @@
             <div class="data-id">
                 {$user.id}
             </div>
-            <a href="/auth/logout" data-sveltekit-reload>로그아웃</a>
+            <form action="/auth/logout" method="post">
+                <input type="submit" value="로그아웃"/>
+            </form>
             <!--<a href="/auth/withdraw">회원 탈퇴</a>-->
         </div>
     {/if}
@@ -68,5 +70,21 @@
         display:flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    @media only screen and (max-width:767px){
+        .data-wrapper{
+            left:100%;
+            transform: translateX(-100%);
+        }
+    }
+
+    input[type="submit"]{
+        background-color: white;
+        cursor: pointer;
+        border:0;
+        outline:0;
+
+        font-size: 16px;
     }
 </style>

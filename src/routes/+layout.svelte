@@ -45,13 +45,13 @@
     }
 
     .left{
-        width:50%;
+        width:30px;
         
         flex-direction: row;
     }
 
     .right{
-        width:50%;
+        width:calc(100% - 30px);
         flex-direction: row-reverse;
     }
 
