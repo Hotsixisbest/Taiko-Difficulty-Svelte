@@ -22,6 +22,10 @@
 </main>
 
 <style>
+    :global(body){
+        background-color: white;
+    }
+
     main{
         display:flex;
         flex-direction: column;
