@@ -24,8 +24,8 @@
             <div class="data-id">
                 {$user.id}
             </div>
-            <a href="/auth/logout">로그아웃</a>
-            <a href="/auth/withdraw">회원 탈퇴</a>
+            <a href="/auth/logout" data-sveltekit-reload>로그아웃</a>
+            <!--<a href="/auth/withdraw">회원 탈퇴</a>-->
         </div>
     {/if}
 </div>
