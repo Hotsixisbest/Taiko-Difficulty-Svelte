@@ -28,10 +28,6 @@
 </div>
 
 <style>
-	:global(body) {
-		background-color: #e4e4e4;
-	}
-
 	.form-wrapper {
 		width: 100%;
 		display: flex;
