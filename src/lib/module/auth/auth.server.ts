@@ -164,6 +164,28 @@ async function createSession(id:string):Promise<string>{
     }
 }
 
+export async function removeSession(key:string){
+    try{
+        await new Promise((res, rej) => {
+            sessionDB.run("DELETE FROM `session` WHERE `key` = ?", [key], (err) => {
+                if(err){
+                    rej(err);
+                }
+                else{
+                    res(err);
+                }
+            })
+        })
+    }
+    catch(err:any){
+        throw new AuthError(err.message, 'DATABASE_ERROR');
+    }
+
+    return {
+        result:'success'
+    }
+}
+
 export async function checkSession(key:string){
     try{
         await deleteSessionExpired();

@@ -84,8 +84,8 @@
 
 {status}
 {#if status === 'login'}
-	<input type="text" bind:value={logindata.email} />
-	<input type="password" bind:value={logindata.password} />
+	<input type="text" bind:value={logindata.email} placeholder="동더히로바 이메일"/>
+	<input type="password" bind:value={logindata.password} placeholder="동더히로바 비밀번호"/>
 	<button
 		on:click={() => {
 			hirobaLogin();

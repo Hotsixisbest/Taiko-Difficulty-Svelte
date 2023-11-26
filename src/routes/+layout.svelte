@@ -38,6 +38,10 @@
 <slot />
 
 <style>
+    :global(body){
+        background-color: white;
+    }
+
     a.header-link{
         font-weight: bold;
     }

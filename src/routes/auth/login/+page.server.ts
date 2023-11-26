@@ -45,7 +45,10 @@ export const actions = {
             }
         }
 
-        cookies.set('session_key', sessionKey, {path:'/'});
+        cookies.set('session_key', sessionKey, {
+            path:'/',
+            secure:false
+        });
         throw redirect(302, '/');
     }
 }
